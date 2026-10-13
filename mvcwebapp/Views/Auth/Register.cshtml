@@ -1,0 +1,41 @@
+@using mvcwebapp.Dtos
+@{
+    ViewData["Title"] = "Register";
+}
+
+@model UserDto
+<form asp-controller="Auth" asp-action="CreateUser" method="post" class="mx-auto mt-5 p-4 border rounded shadow-sm" style="max-width: 400px;">
+    <h3 class="mb-4 text-center">Register</h3>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="mb-3">
+        <label for="Username" class="form-label">Username</label>
+        <input type="text" id="Username" name="Username" asp-for="Username" class="form-control" placeholder="Enter your username"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" id="Email" name="Email" asp-for="Email" class="form-control" placeholder="Enter your email"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="Password" class="form-label">Password</label>
+        <input type="password" id="Password" name="Password" asp-for="Password" class="form-control" placeholder="Enter your password"/>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Register</button>
+    <p class="mt-3 mb-0 text-center">
+        Already have an account? <a asp-controller="Auth" asp-action="Login">Login</a>
+    </p>
+</form>

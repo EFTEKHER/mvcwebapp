@@ -1,0 +1,43 @@
+@using mvcwebapp.Dtos
+@model ProductDto
+@{
+    ViewData["Title"] = "Product Form";
+}
+
+<form asp-controller="Dashboard" asp-action="CreateProduct" method="post" class="mx-auto mt-5 p-4 border rounded shadow-sm" style="max-width: 500px;">
+    <h3 class="mb-4 text-center">Add Product</h3>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="mb-3">
+        <label asp-for="ProductName" class="form-label">Product Name</label>
+        <input asp-for="ProductName" class="form-control" placeholder="Enter product name" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="price" class="form-label">Price</label>
+            <input asp-for="price" type="number" step="0.01" min="0" class="form-control" placeholder="0.00" />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="color" class="form-label">Color</label>
+            <input asp-for="color" class="form-control" placeholder="e.g. Black" />
+        </div>
+    </div>
+
+    <div class="d-flex gap-2">
+        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary w-50">Cancel</a>
+        <button type="submit" class="btn btn-primary w-50">Save</button>
+    </div>
+</form>
