@@ -1,6 +1,10 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using mvcwebapp.Data;
 using mvcwebapp.Dtos;
 using mvcwebapp.Models;
@@ -92,6 +96,18 @@ namespace mvcwebapp.Controllers
 
             }
         }
-
+    public string GenerateJwtToken(UserDto dto)
+        {
+            var jwtHandler= new JwtSecurityToken();
+            var key=Encoding.UTF8.GetBytes("559af2b71e7c3eac82ff5312a40bbd0456a8d5191f87868275ceed358cfcb395");
+            var tokenDescriptor= new SecurityTokenDescriptor
+            {
+                Subject=new System.Security.Claims.ClaimsIdentity(new[]
+                {
+                    new  Claim(ClaimTypes.Name, dto.Email)
+                }),
+                Expires=DateTime.UtcNow,
+            };
+        }
     
     }}

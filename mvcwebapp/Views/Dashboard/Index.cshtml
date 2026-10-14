@@ -52,8 +52,13 @@
                         <td class="text-end">@p.price.ToString("0.00")</td>
                         <td>@p.color</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-sm btn-warning">Edit</button>
-                            <a type="button" class="btn btn-sm btn-danger" asp-action="DeleteProduct" asp-route-productId="@p.Id">Delete</a>
+                            <a type="button" class="btn btn-sm btn-warning" 
+                            asp-controller="Dashboard"
+                            asp-action="UpdateForm" asp-route-id="@p.Id">Edit</a>
+                            <a type="button" class="btn btn-sm btn-danger" 
+                            asp-controller="Dashboard"
+                            
+                            asp-action="DeleteProduct" asp-route-productId="@p.Id">Delete</a>
                         </td>
                     </tr>
                 }

@@ -229,3 +229,6 @@
 /Users/eftekheraliefte2000/workspace/mvcwebapp/mvcwebapp/bin/Debug/net10.0/runtimes/win-x86/native/msalruntime_x86.dll
 /Users/eftekheraliefte2000/workspace/mvcwebapp/mvcwebapp/obj/Debug/net10.0/mvcwebapp.csproj.AssemblyReference.cache
 /Users/eftekheraliefte2000/workspace/mvcwebapp/mvcwebapp/obj/Debug/net10.0/mvcwebapp.csproj.Up2Date
+/Users/eftekheraliefte2000/workspace/mvcwebapp/mvcwebapp/obj/Debug/net10.0/mvcwebapp.sourcelink.json
+/Users/eftekheraliefte2000/workspace/mvcwebapp/mvcwebapp/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/eftekheraliefte2000/workspace/mvcwebapp/mvcwebapp/bin/Debug/net10.0/Microsoft.Bcl.Cryptography.dll

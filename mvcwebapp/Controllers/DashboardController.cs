@@ -32,6 +32,38 @@ namespace mvcwebapp.Controllers
         {
             return View(new ProductDto());
         }
+        public IActionResult UpdateForm(int id)
+        {
+
+            var data =context.Products.Select(x=>new ProductDto
+            {
+                Id = x.Id,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                price = x.price,
+                color = x.color
+            }).FirstOrDefault(x=>x.Id == id);
+
+            return View(data);
+        }
+
+        public async Task<IActionResult>  UpdateProduct( ProductDto dto)
+        {
+            if (dto == null)
+            {
+                ViewBag.ErrorMessage = "please fill all the details";
+                return View("UpdateForm", dto);
+            }
+            var  data=context.Products.FirstOrDefault(x=>x.Id == dto.Id);
+            data.price=dto.price;
+            data.color=dto.color;
+            data.ProductName=dto.ProductName;
+            data.Description=dto.Description;
+
+            context.Products.Update(data);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
         public async Task<IActionResult> CreateProduct(ProductDto dto)
         {
@@ -67,6 +99,8 @@ namespace mvcwebapp.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
 
     }
 }
