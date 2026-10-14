@@ -86,7 +86,14 @@ namespace mvcwebapp.Controllers
                 if (isUserExists.Password == dto.Password)
                 {
                     // TempData["Success"] = "Login successful.";
-
+                    var token=GenerateJwtToken(dto);
+                    Response.Cookies.Append("jwt_key", token, new CookieOptions
+                    {
+                        HttpOnly=true,
+                        Secure=true,
+                        SameSite=SameSiteMode.Strict,
+                        Expires=DateTime.UtcNow.AddMinutes(30)
+                    });
                     return RedirectToAction("Index", "Dashboard");
                 }
                 else
@@ -98,7 +105,7 @@ namespace mvcwebapp.Controllers
         }
     public string GenerateJwtToken(UserDto dto)
         {
-            var jwtHandler= new JwtSecurityToken();
+            var jwtHandler= new JwtSecurityTokenHandler();
             var key=Encoding.UTF8.GetBytes("559af2b71e7c3eac82ff5312a40bbd0456a8d5191f87868275ceed358cfcb395");
             var tokenDescriptor= new SecurityTokenDescriptor
             {
@@ -106,8 +113,15 @@ namespace mvcwebapp.Controllers
                 {
                     new  Claim(ClaimTypes.Name, dto.Email)
                 }),
-                Expires=DateTime.UtcNow,
+                Expires=DateTime.UtcNow.AddMinutes(30),
+                SigningCredentials=new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            var token=jwtHandler.CreateToken(tokenDescriptor);
+            return jwtHandler.WriteToken(token);
         }
-    
+    public IActionResult LogoutUser()
+        {
+            Response.Cookies.Delete("jwt_key");
+            return RedirectToAction("Login");
+        }
     }}

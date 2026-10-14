@@ -1,5 +1,6 @@
 
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mvcwebapp.Data;
@@ -7,8 +8,9 @@ using mvcwebapp.Data;
 using mvcwebapp.Dtos;
 using mvcwebapp.Models;
 namespace mvcwebapp.Controllers
-{
-    public class DashboardController(AppDbContext context) : Controller
+{       
+    [Authorize]
+        public class DashboardController(AppDbContext context) : Controller
     {
         // GET: DashboardController
         public IActionResult Index()

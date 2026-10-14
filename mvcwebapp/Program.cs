@@ -29,6 +29,27 @@ builder.Services.AddAuthentication(
         IssuerSigningKey=new SymmetricSecurityKey(Encoding.UTF8.GetBytes("559af2b71e7c3eac82ff5312a40bbd0456a8d5191f87868275ceed358cfcb395"))
 
     };
+ x.Events= new JwtBearerEvents
+ {
+     OnMessageReceived = context =>
+     {
+         var token=context.Request.Cookies["jwt_key"];
+     if (!string.IsNullOrEmpty(token))
+     {
+          context.Token=token;
+
+     }
+     return Task.CompletedTask;
+     },
+     OnChallenge = context =>
+     {
+        context.HandleResponse();
+        context.Response.Redirect("/");
+        return Task.CompletedTask;
+         
+     }
+
+ };
 });
 builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
